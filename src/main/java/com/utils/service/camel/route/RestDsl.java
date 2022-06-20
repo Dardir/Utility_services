@@ -1,4 +1,4 @@
-package com.bvs.baraka.ipn.camel.route;
+package com.utils.service.camel.route;
 
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.rest.RestBindingMode;

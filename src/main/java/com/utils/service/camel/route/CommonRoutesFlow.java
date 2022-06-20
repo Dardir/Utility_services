@@ -44,10 +44,10 @@ public class CommonRoutesFlow extends RestRoute {
 //                "", Object.class);
 //        mq();
 
-        from("jmsComponent:queue:Q1").process(new Processor() {
-            public void process(Exchange exchange) throws Exception {
-                System.out.println(exchange.getIn().getBody());
-            }
-        }).to("jmsComponent:queue:Q2");
+//        from("jmsComponent:queue:Q1").process(new Processor() {
+//            public void process(Exchange exchange) throws Exception {
+//                System.out.println(exchange.getIn().getBody());
+//            }
+//        }).to("jmsComponent:queue:Q2");
     }
 }
