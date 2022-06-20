@@ -31,35 +31,35 @@ public abstract class RestRoute extends RouteBuilder {
 //                .to(FlowRouteNames.AUDIT_ROUTE_NAME)
                 .to(toRouteName);
     }
-
-    protected void buildRestServiceCallerRoute(String routeName,
-                                               HttpMethod methodName,
-                                               Processor requestProcessor,
-                                               Processor responseProcessor,
-                                               String targetServiceName,
-                                               Class<?> responseType)
-    {
-//        Map<String,String> parameters= new HashMap<>();
-////        [{Body=Hello, Mobile_NO=00201009991192, Msg_ID=543353577, Password=Bara@1234, Sender=BARAKA EGYT, Service=, StartTime=[, ], User=BARAKA Test, Validty=[, ]}]
-//        parameters.put("Body","Hello");
-//        parameters.put("Mobile_NO","00201009991192");
-//        parameters.put("Msg_ID","54335357787");
-//        parameters.put("Password","Bara@1234");
-//        parameters.put("Sender","Hello");
-//        parameters.put("StartTime","");
-//        parameters.put("User","BARAKA Test");
-//        parameters.put("Validty","");
-        from(routeName).process(requestProcessor)
-                .setHeader(Exchange.HTTP_METHOD, constant(methodName.name()))
-                .setHeader(Exchange.CONTENT_TYPE,
-                        constant("application/xml"))
-                .marshal().json(JsonLibrary.Jackson)
-                .to("log:INFO?showBody=true&showHeaders=true")
-                .to(targetServiceName + "?bridgeEndpoint=true")
-//                .unmarshal().jacksonxml(responseType)
-//                .setProperty(ConstantsEnum.RestServiceResponse.getConstantValue(), simple("${body}"))
-                .process(responseProcessor);
-    }
+//
+//    protected void buildRestServiceCallerRoute(String routeName,
+//                                               HttpMethod methodName,
+//                                               Processor requestProcessor,
+//                                               Processor responseProcessor,
+//                                               String targetServiceName,
+//                                               Class<?> responseType)
+//    {
+////        Map<String,String> parameters= new HashMap<>();
+//////        [{Body=Hello, Mobile_NO=00201009991192, Msg_ID=543353577, Password=Bara@1234, Sender=BARAKA EGYT, Service=, StartTime=[, ], User=BARAKA Test, Validty=[, ]}]
+////        parameters.put("Body","Hello");
+////        parameters.put("Mobile_NO","00201009991192");
+////        parameters.put("Msg_ID","54335357787");
+////        parameters.put("Password","Bara@1234");
+////        parameters.put("Sender","Hello");
+////        parameters.put("StartTime","");
+////        parameters.put("User","BARAKA Test");
+////        parameters.put("Validty","");
+//        from(routeName).process(requestProcessor)
+//                .setHeader(Exchange.HTTP_METHOD, constant(methodName.name()))
+//                .setHeader(Exchange.CONTENT_TYPE,
+//                        constant("application/xml"))
+//                .marshal().json(JsonLibrary.Jackson)
+//                .to("log:INFO?showBody=true&showHeaders=true")
+//                .to(targetServiceName + "?bridgeEndpoint=true")
+////                .unmarshal().jacksonxml(responseType)
+////                .setProperty(ConstantsEnum.RestServiceResponse.getConstantValue(), simple("${body}"))
+//                .process(responseProcessor);
+//    }
 
     protected ProcessorDefinition<?> buildGeneralRoute(String routeName, Processor processor) {
         return from(routeName)

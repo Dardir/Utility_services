@@ -1,17 +1,7 @@
 package com.utils.service.camel.route;
 
 
-import com.utils.service.camel.processor.validation.ReceiveSMSRequestProcessor;
-import com.utils.service.camel.processor.validation.ReceiveSMSResponseProcessor;
-import org.apache.activemq.ActiveMQConnectionFactory;
-import org.apache.camel.CamelContext;
-import org.apache.camel.Exchange;
-import org.apache.camel.Processor;
-import org.apache.camel.impl.DefaultCamelContext;
-import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
-
-import javax.jms.ConnectionFactory;
 
 @Component
 public class CommonRoutesFlow extends RestRoute {
