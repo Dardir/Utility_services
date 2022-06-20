@@ -14,24 +14,24 @@ import org.springframework.jms.core.JmsTemplate;
 @EnableJms
 public class SpringActiveMQConfig {
 
-	@Value("${activemq.broker.url}")
-	private String brokerUrl;
-
-	@Bean
-	public Queue queue() {
-		return new ActiveMQQueue("sms-queue");
-	}
-
-	@Bean
-	public ActiveMQConnectionFactory activeMQConnectionFactory() {
-		ActiveMQConnectionFactory activeMQConnectionFactory = new ActiveMQConnectionFactory();
-		activeMQConnectionFactory.setBrokerURL(brokerUrl);
-		return activeMQConnectionFactory;
-	}
-
-	@Bean
-	public JmsTemplate jmsTemplate() {
-		return new JmsTemplate(activeMQConnectionFactory());
-	}
+//	@Value("${activemq.broker.url}")
+//	private String brokerUrl;
+//
+//	@Bean
+//	public Queue queue() {
+//		return new ActiveMQQueue("sms-queue");
+//	}
+//
+//	@Bean
+//	public ActiveMQConnectionFactory activeMQConnectionFactory() {
+//		ActiveMQConnectionFactory activeMQConnectionFactory = new ActiveMQConnectionFactory();
+//		activeMQConnectionFactory.setBrokerURL(brokerUrl);
+//		return activeMQConnectionFactory;
+//	}
+//
+//	@Bean
+//	public JmsTemplate jmsTemplate() {
+//		return new JmsTemplate(activeMQConnectionFactory());
+//	}
 
 }

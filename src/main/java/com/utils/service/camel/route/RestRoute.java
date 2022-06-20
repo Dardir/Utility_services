@@ -20,10 +20,15 @@ public abstract class RestRoute extends RouteBuilder {
 //    }
 
     public void buildEndpointRoute(String serviceName, Class<?> requestTypeClass, String toRouteName) {
-        rest().consumes("application/json").produces("application/json").post(serviceName)
-                .type(requestTypeClass).param().name("body").type(body).description("Payload").endParam()
+        rest().consumes("application/json")
+                .produces("application/json").post(serviceName)
+                .type(requestTypeClass).param()
+                .name("body").type(body).description("Payload").endParam()
                 .route()
                 .to("log:INFO?showBody=true&showHeaders=true")
+//                .setProperty(ConstantsEnum.OriginalMessage.getConstantValue(), simple("${body}"))
+//                .setProperty(ConstantsEnum.ServiceName.getConstantValue(), constant(serviceName))
+//                .to(FlowRouteNames.AUDIT_ROUTE_NAME)
                 .to(toRouteName);
     }
 
@@ -46,13 +51,12 @@ public abstract class RestRoute extends RouteBuilder {
 //        parameters.put("Validty","");
         from(routeName).process(requestProcessor)
                 .setHeader(Exchange.HTTP_METHOD, constant(methodName.name()))
-
-//                .setHeader(Exchange.CONTENT_TYPE, constant("application/json"))
+                .setHeader(Exchange.CONTENT_TYPE,
+                        constant("application/xml"))
                 .marshal().json(JsonLibrary.Jackson)
                 .to("log:INFO?showBody=true&showHeaders=true")
                 .to(targetServiceName + "?bridgeEndpoint=true")
-//                .unmarshal().json(JsonLibrary.Jackson, responseType)
-                .unmarshal().json()
+//                .unmarshal().jacksonxml(responseType)
 //                .setProperty(ConstantsEnum.RestServiceResponse.getConstantValue(), simple("${body}"))
                 .process(responseProcessor);
     }
