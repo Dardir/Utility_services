@@ -17,10 +17,10 @@ public class SpringActiveMQConfig {
 	@Value("${activemq.broker.url}")
 	private String brokerUrl;
 
-//	@Bean
-//	public Queue queue() {
-//		return new ActiveMQQueue("sms-queue");
-//	}
+	@Bean
+	public Queue queue() {
+		return new ActiveMQQueue("sms-in-queue");
+	}
 
 	@Bean
 	public ActiveMQConnectionFactory activeMQConnectionFactory() {
@@ -29,9 +29,9 @@ public class SpringActiveMQConfig {
 		return activeMQConnectionFactory;
 	}
 
-//	@Bean
-//	public JmsTemplate jmsTemplate() {
-//		return new JmsTemplate(activeMQConnectionFactory());
-//	}
+	@Bean
+	public JmsTemplate jmsTemplate() {
+		return new JmsTemplate(activeMQConnectionFactory());
+	}
 
 }

@@ -7,10 +7,10 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 @SpringBootApplication
 @EnableAutoConfiguration
-public class AuditLogServiceApplication {
+public class UtilityServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AuditLogServiceApplication.class, args);
+		SpringApplication.run(UtilityServiceApplication.class, args);
 	}
 
 }
