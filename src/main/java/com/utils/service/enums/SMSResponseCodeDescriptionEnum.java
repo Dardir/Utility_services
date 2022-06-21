@@ -1,4 +1,4 @@
-package com.utils.service.camel.common;
+package com.utils.service.enums;
 
 
 import lombok.Getter;

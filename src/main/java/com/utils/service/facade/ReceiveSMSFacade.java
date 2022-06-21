@@ -1,10 +1,10 @@
 package com.utils.service.facade;
 
-import com.utils.service.camel.common.SMSResponseCodeDescriptionEnum;
-import com.utils.service.camel.common.SMSResponseCodesEnum;
+import com.utils.service.dto.sms.ServiceResponse;
+import com.utils.service.enums.SMSResponseCodeDescriptionEnum;
+import com.utils.service.enums.SMSResponseCodesEnum;
 import com.utils.service.dto.sms.SMSResponseWrapperDTO;
 import com.utils.service.dto.sms.SendSMSRequestDTO;
-import com.utils.service.dto.sms.SendSMSResponseDTO;
 import com.utils.service.service.ServiceCaller;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
@@ -23,7 +23,8 @@ public class ReceiveSMSFacade {
         this.env = env;
     }
 
-    public SMSResponseWrapperDTO processSMS(SendSMSRequestDTO sendSMSRequestDTO) {
+    public ServiceResponse processSMS(SendSMSRequestDTO sendSMSRequestDTO) {
+        ServiceResponse serviceResponse = null;
         // Generated
         String msgId = System.currentTimeMillis() + "";
         ///////////////////////////////////////////////////////
@@ -49,29 +50,26 @@ public class ReceiveSMSFacade {
                 System.out.println("RES =========>>>>>>>>>>   " + res);
                 if (!ObjectUtil.isNullOrEmpty(res)) {
                     if (ServiceResponseFacade.isSuccessResponseCode(res)) {
-                        if (ServiceResponseFacade.isSuccessResponseCode(res)) {
-                            return serviceResponseFacade.generateSMSResponse
-                                    (SMSResponseCodeDescriptionEnum.SUCCESS.getErrorDescription(), SMSResponseCodesEnum.SUCCESS_CODE.getErrorCode());
-                        }
+                      return   serviceResponseFacade.generateSuccessResponse();
                     } else if (ServiceResponseFacade.isInternalErrorHappen(res)) {
-                        return serviceResponseFacade.generateSMSResponse
-                                (SMSResponseCodeDescriptionEnum.ERROR_FIRE.getErrorDescription(), SMSResponseCodesEnum.ERROR_FIRE_CODE.getErrorCode());
+                        serviceResponseFacade.generateInternalErrorResponse();
+//                        serviceResponseFacade.generateSMSResponse
+//                                (SMSResponseCodeDescriptionEnum.ERROR_FIRE.getErrorDescription(), SMSResponseCodesEnum.ERROR_FIRE_CODE.getErrorCode());
                     }
                 } else {
-                    return serviceResponseFacade.generateSMSResponse
-                            (SMSResponseCodeDescriptionEnum.ERROR_FIRE.getErrorDescription(), SMSResponseCodesEnum.ERROR_FIRE_CODE.getErrorCode());
+                    return  serviceResponseFacade.generateInternalErrorResponse();
                 }
             } else {
-                return serviceResponseFacade.generateSMSResponse
-                        (SMSResponseCodeDescriptionEnum.INVALID_MOBILE.getErrorDescription(), SMSResponseCodesEnum.INVALID_MOBILE_CODE.getErrorCode());
+                return serviceResponseFacade.generateInvalidMobileNumberResponse();
             }
-        } else if (ObjectUtil.isNullOrEmpty(mobileNumber)) {
-            return serviceResponseFacade.generateSMSResponse
-                    (SMSResponseCodeDescriptionEnum.EMPTY_Mobile_Number.getErrorDescription(), SMSResponseCodesEnum.EMPTY_MOB_CODE.getErrorCode());
-        } else if (ObjectUtil.isNullOrEmpty(body)) {
-            return serviceResponseFacade.generateSMSResponse
-                    (SMSResponseCodeDescriptionEnum.EMPTY_Body.getErrorDescription(), SMSResponseCodesEnum.EMPTY_BODY_CODE.getErrorCode());
         }
+//        else if (ObjectUtil.isNullOrEmpty(mobileNumber)) {
+//            return serviceResponseFacade.generateSMSResponse
+//                    (SMSResponseCodeDescriptionEnum.EMPTY_Mobile_Number.getErrorDescription(), SMSResponseCodesEnum.EMPTY_MOB_CODE.getErrorCode());
+//        } else if (ObjectUtil.isNullOrEmpty(body)) {
+//            return serviceResponseFacade.generateSMSResponse
+//                    (SMSResponseCodeDescriptionEnum.EMPTY_Body.getErrorDescription(), SMSResponseCodesEnum.EMPTY_BODY_CODE.getErrorCode());
+//        }
 
         return null;
     }

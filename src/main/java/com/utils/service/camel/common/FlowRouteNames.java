@@ -4,4 +4,5 @@ public class FlowRouteNames {
 	public static final String SEND_SMS_SERVICE_ROUTE = "direct:sendSMSServiceCall";
 
 	public static final String GENERATE_SERVICE_RESPONSE_ROUTE_NAME = "direct:generateServiceResponse";
+	public static final String AUDIT_ROUTE_NAME = "direct:auditServiceRoute";
 }

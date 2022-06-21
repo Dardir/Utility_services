@@ -2,6 +2,7 @@ package com.utils.service.camel.route;
 
 import com.utils.service.camel.common.FlowRouteNames;
 import com.utils.service.dto.sms.SendSMSResponseDTO;
+import com.utils.service.enums.ConstantsEnum;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
@@ -25,7 +26,7 @@ public abstract class RestRoute extends RouteBuilder {
                 .to("log:INFO?showBody=true&showHeaders=true")
 //                .setProperty(ConstantsEnum.OriginalMessage.getConstantValue(), simple("${body}"))
 //                .setProperty(ConstantsEnum.ServiceName.getConstantValue(), constant(serviceName))
-//                .to(FlowRouteNames.AUDIT_ROUTE_NAME)
+                .to(FlowRouteNames.AUDIT_ROUTE_NAME)
                 .to(toRouteName);
     }
 

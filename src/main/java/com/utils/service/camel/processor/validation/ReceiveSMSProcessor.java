@@ -2,6 +2,7 @@ package com.utils.service.camel.processor.validation;
 
 import com.utils.service.dto.sms.SMSResponseWrapperDTO;
 import com.utils.service.dto.sms.SendSMSRequestDTO;
+import com.utils.service.dto.sms.ServiceResponse;
 import com.utils.service.facade.ReceiveSMSFacade;
 import com.utils.service.facade.ServiceResponseFacade;
 import org.apache.camel.Exchange;
@@ -29,9 +30,9 @@ public class ReceiveSMSProcessor implements Processor {
                 .getBody(SendSMSRequestDTO.class);
         System.out.println("MSG =========>>>>>>>>>>   " + msg);
 //        ///////////////////////////////////////////////////////
-        SMSResponseWrapperDTO res = receiveSMSFacade.processSMS(msg);
-        System.out.println("Description =========>>>>>>>>>>   " + res.getSendSMSResponseDTO().getResponseDescription());
-        System.out.println("Code =========>>>>>>>>>>   " + res.getSendSMSResponseDTO().getResponseCode());
+        ServiceResponse res = receiveSMSFacade.processSMS(msg);
+        System.out.println("Description =========>>>>>>>>>>   " + res.getServiceHeader().getResponseDesc());
+        System.out.println("Code =========>>>>>>>>>>   " + res.getServiceHeader().getResponseCode());
         serviceResponseFacade.prepareServiceResponseRedirection(res, exchange);
     }
 }
