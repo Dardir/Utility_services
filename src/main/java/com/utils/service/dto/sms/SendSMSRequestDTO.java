@@ -1,9 +1,13 @@
 package com.utils.service.dto.sms;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
-public class SendSMSRequestDTO {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class SendSMSRequestDTO implements Serializable {
     private String msgBody;
     private String mobileNumber;
 }

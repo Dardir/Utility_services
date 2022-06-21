@@ -1,7 +1,9 @@
 package com.utils.service.camel.processor.validation;
 
 import com.google.gson.Gson;
+import com.utils.service.dto.sms.SMSResponseWrapperDTO;
 import com.utils.service.dto.sms.SendSMSRequestDTO;
+import com.utils.service.dto.sms.SendSMSResponseDTO;
 import com.utils.service.facade.ReceiveSMSFacade;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
@@ -28,8 +30,10 @@ public class ReceiveSMSProcessor implements Processor {
         SendSMSRequestDTO msg = gson.fromJson(request, SendSMSRequestDTO.class);
         System.out.println("MSG =========>>>>>>>>>>   " + msg);
         ///////////////////////////////////////////////////////
-        boolean res = receiveSMSFacade.processSMS(msg);
-        System.out.println("SENT? =========>>>>>>>>>>   " + res);
+        SMSResponseWrapperDTO res = receiveSMSFacade.processSMS(msg);
+        exchange.getMessage().setBody(res);
+        System.out.println("Description =========>>>>>>>>>>   " + res.getSendSMSResponseDTO().getResponseDescription());
+        System.out.println("Code =========>>>>>>>>>>   " + res.getSendSMSResponseDTO().getResponseCode());
 
 
     }

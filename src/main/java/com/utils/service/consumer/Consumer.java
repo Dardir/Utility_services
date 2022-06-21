@@ -1,6 +1,8 @@
 package com.utils.service.consumer;
 
+import com.utils.service.dto.sms.SMSResponseWrapperDTO;
 import com.utils.service.dto.sms.SendSMSRequestDTO;
+import com.utils.service.dto.sms.SendSMSResponseDTO;
 import com.utils.service.facade.ReceiveSMSFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,8 +28,8 @@ public class Consumer {
 		logger.info("Message received from activemq queue---" + message);
 		Gson gson = new Gson();
 		SendSMSRequestDTO smsMsg = gson.fromJson(message, SendSMSRequestDTO.class);
-		boolean res = receiveSMSFacade.processSMS(smsMsg);
-		System.out.println("SENT? =========>>>>>>>>>>   " + res);
+		SMSResponseWrapperDTO res = receiveSMSFacade.processSMS(smsMsg);
+		System.out.println("SENT? =========>>>>>>>>>>   " + res.getSendSMSResponseDTO().getResponseDescription());
 
 	}
 }

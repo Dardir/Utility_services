@@ -1,8 +1,14 @@
 package com.utils.service.dto.sms;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+import java.io.Serializable;
 
 @Data
-public class SendSMSResponseDTO {
-    private boolean success;
+@EqualsAndHashCode
+public class SendSMSResponseDTO implements Serializable {
+    private String responseCode;
+    private String responseDescription;
+
 }

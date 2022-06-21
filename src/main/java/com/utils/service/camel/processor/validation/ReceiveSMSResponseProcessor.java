@@ -1,5 +1,6 @@
 package com.utils.service.camel.processor.validation;
 
+import com.utils.service.dto.sms.SendSMSResponseDTO;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -13,8 +14,8 @@ public class ReceiveSMSResponseProcessor implements Processor {
 
     @Override
     public void process(Exchange exchange) {
-        String msg = exchange.getIn()
-                .getBody(String.class);
+        SendSMSResponseDTO msg = exchange.getIn()
+                .getBody(SendSMSResponseDTO.class);
         System.out.println("MSG =========>>>>>>>>>>   " + msg);
     }
 //	}
