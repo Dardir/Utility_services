@@ -1,10 +1,9 @@
 package com.utils.service.camel.processor.validation;
 
-import com.google.gson.Gson;
 import com.utils.service.dto.sms.SMSResponseWrapperDTO;
 import com.utils.service.dto.sms.SendSMSRequestDTO;
-import com.utils.service.dto.sms.SendSMSResponseDTO;
 import com.utils.service.facade.ReceiveSMSFacade;
+import com.utils.service.facade.ServiceResponseFacade;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -17,24 +16,22 @@ import org.springframework.stereotype.Component;
 public class ReceiveSMSProcessor implements Processor {
 
     private final ReceiveSMSFacade receiveSMSFacade;
+    private final ServiceResponseFacade serviceResponseFacade;
 
-    public ReceiveSMSProcessor(ReceiveSMSFacade receiveSMSFacade) {
+    public ReceiveSMSProcessor(ReceiveSMSFacade receiveSMSFacade, ServiceResponseFacade serviceResponseFacade) {
         this.receiveSMSFacade = receiveSMSFacade;
+        this.serviceResponseFacade = serviceResponseFacade;
     }
 
     @Override
     public void process(Exchange exchange) {
-        String request = exchange.getIn()
-                .getBody(String.class);
-        Gson gson = new Gson();
-        SendSMSRequestDTO msg = gson.fromJson(request, SendSMSRequestDTO.class);
+        SendSMSRequestDTO msg = exchange.getIn()
+                .getBody(SendSMSRequestDTO.class);
         System.out.println("MSG =========>>>>>>>>>>   " + msg);
-        ///////////////////////////////////////////////////////
+//        ///////////////////////////////////////////////////////
         SMSResponseWrapperDTO res = receiveSMSFacade.processSMS(msg);
-        exchange.getMessage().setBody(res);
         System.out.println("Description =========>>>>>>>>>>   " + res.getSendSMSResponseDTO().getResponseDescription());
         System.out.println("Code =========>>>>>>>>>>   " + res.getSendSMSResponseDTO().getResponseCode());
-
-
+        serviceResponseFacade.prepareServiceResponseRedirection(res, exchange);
     }
 }

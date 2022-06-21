@@ -16,10 +16,6 @@ import static org.apache.camel.model.rest.RestParamType.body;
 
 public abstract class RestRoute extends RouteBuilder {
 
-//    protected void mq(){
-//        from("activemq:queue:sms-queue").to("direct:PROCESS_SMS");
-//    }
-
     public void buildEndpointRoute(String serviceName, Class<?> requestTypeClass, String toRouteName) {
         rest().consumes("application/json")
                 .produces("application/json").post(serviceName)
@@ -33,6 +29,12 @@ public abstract class RestRoute extends RouteBuilder {
                 .to(toRouteName);
     }
 
+    public void buildAuditRoute(String routeName, Processor requestQueueProcessor) {
+        from(routeName)
+                .setProperty(ConstantsEnum.BEFORE_AUDIT_MESSAGE.getConstantValue(), simple("${body}"))
+                .process(requestQueueProcessor)
+                .setBody(exchangeProperty(ConstantsEnum.BEFORE_AUDIT_MESSAGE.getConstantValue()));
+    }
     protected ProcessorDefinition<?> buildGeneralRoute(String routeName, Processor processor) {
         return from(routeName)
                 .process(processor);
