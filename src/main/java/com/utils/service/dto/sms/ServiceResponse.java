@@ -3,6 +3,7 @@ package com.utils.service.dto.sms;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.utils.service.entity.MWErrorCodesMapping;
 import com.utils.service.enums.BENamesEnum;
+import com.utils.service.enums.MWDefaultStatusCodeEnum;
 import com.utils.service.enums.SMSResponseCodeDescriptionEnum;
 import com.utils.service.enums.SMSResponseCodesEnum;
 import com.utils.service.facade.MWErrorCodesMappingFacade;
@@ -31,9 +32,9 @@ public class ServiceResponse {
     }
 
     public void generateSuccessResponse() {
-//        MWErrorCodesMapping codeMapping = mwErrorCodesMappingFacade.generateSuccessCode();
-//        this.setServiceHeader(new ServiceHeader(codeMapping.getMwErrorCode(),codeMapping.getMwErrorDesc()));
-        this.setServiceHeader(new ServiceHeader(SMSResponseCodesEnum.SUCCESS_CODE.getErrorCode(), SMSResponseCodeDescriptionEnum.SUCCESS.getErrorDescription()));
+        MWErrorCodesMapping codeMapping = mwErrorCodesMappingFacade.generateSuccessCode();
+        this.setServiceHeader(new ServiceHeader(codeMapping.getMwErrorCode(),codeMapping.getMwErrorDesc()));
+//        this.setServiceHeader(new ServiceHeader(SMSResponseCodesEnum.SUCCESS_CODE.getErrorCode(), SMSResponseCodeDescriptionEnum.SUCCESS.getErrorDescription()));
     }
 
     public void generateFailureResponse(BENamesEnum beName, String beErrorCode) {
@@ -52,11 +53,23 @@ public class ServiceResponse {
     }
 
     public void generateInternalErrorResponse() {
-        this.setServiceHeader(new ServiceHeader(SMSResponseCodesEnum.ERROR_FIRE_CODE.getErrorCode(), SMSResponseCodeDescriptionEnum.ERROR_FIRE.getErrorDescription()));
+        MWErrorCodesMapping codeMapping = mwErrorCodesMappingFacade.generateFailureCode(BENamesEnum.EZAGEL, MWDefaultStatusCodeEnum.GENERAL_ERROR.getCode());
+        this.setServiceHeader(new ServiceHeader(codeMapping.getMwErrorCode(),codeMapping.getMwErrorDesc()));
+//        this.setServiceHeader(new ServiceHeader(SMSResponseCodesEnum.ERROR_FIRE_CODE.getErrorCode(), SMSResponseCodeDescriptionEnum.ERROR_FIRE.getErrorDescription()));
 
     }
     public void generateInvalidMobileNumberResponse() {
-        this.setServiceHeader(new ServiceHeader(SMSResponseCodesEnum.INVALID_MOBILE_CODE.getErrorCode(), SMSResponseCodeDescriptionEnum.INVALID_MOBILE.getErrorDescription()));
+        MWErrorCodesMapping codeMapping = mwErrorCodesMappingFacade.generateFailureCode(BENamesEnum.EZAGEL, MWDefaultStatusCodeEnum.INVALID_MOBILE_NUMBER.getCode());
+        this.setServiceHeader(new ServiceHeader(codeMapping.getMwErrorCode(),codeMapping.getMwErrorDesc()));
+//
+//        this.setServiceHeader(new ServiceHeader(SMSResponseCodesEnum.INVALID_MOBILE_CODE.getErrorCode(), SMSResponseCodeDescriptionEnum.INVALID_MOBILE.getErrorDescription()));
+
+    }
+    public void generateMissingMandatoryFieldResponse() {
+        MWErrorCodesMapping codeMapping = mwErrorCodesMappingFacade.generateFailureCode(BENamesEnum.EZAGEL, MWDefaultStatusCodeEnum.EMPTY_BODY_OR_MOBILE_NO.getCode());
+        this.setServiceHeader(new ServiceHeader(codeMapping.getMwErrorCode(),codeMapping.getMwErrorDesc()));
+//
+//        this.setServiceHeader(new ServiceHeader(SMSResponseCodesEnum.INVALID_MOBILE_CODE.getErrorCode(), SMSResponseCodeDescriptionEnum.INVALID_MOBILE.getErrorDescription()));
 
     }
 }

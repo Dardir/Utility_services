@@ -16,7 +16,7 @@ public class MWErrorCodesMappingFacade {
     }
 
     public MWErrorCodesMapping generateSuccessCode() {
-        return this.mwErrorCodesMappingService.findByBeNameAndAndBeErrorCode(BENamesEnum.MW.getBeName(), MWDefaultStatusCodeEnum.SUCCESS.getCode());
+        return this.mwErrorCodesMappingService.findByBeNameAndAndBeErrorCode(BENamesEnum.EZAGEL.getBeName(), MWDefaultStatusCodeEnum.SUCCESS.getCode());
     }
 
 

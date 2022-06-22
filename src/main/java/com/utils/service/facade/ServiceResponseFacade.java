@@ -87,4 +87,9 @@ public class ServiceResponseFacade {
         serviceResponse.generateInvalidMobileNumberResponse();
         return serviceResponse;
     }
+    public ServiceResponse generateMissingMandatoryFieldResponse() {
+        ServiceResponse serviceResponse = new ServiceResponse(mwErrorCodesMappingFacade);
+        serviceResponse.generateMissingMandatoryFieldResponse();
+        return serviceResponse;
+    }
 }

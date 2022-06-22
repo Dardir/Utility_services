@@ -50,26 +50,23 @@ public class ReceiveSMSFacade {
                 System.out.println("RES =========>>>>>>>>>>   " + res);
                 if (!ObjectUtil.isNullOrEmpty(res)) {
                     if (ServiceResponseFacade.isSuccessResponseCode(res)) {
-                      return   serviceResponseFacade.generateSuccessResponse();
+                        return serviceResponseFacade.generateSuccessResponse();
                     } else if (ServiceResponseFacade.isInternalErrorHappen(res)) {
                         serviceResponseFacade.generateInternalErrorResponse();
 //                        serviceResponseFacade.generateSMSResponse
 //                                (SMSResponseCodeDescriptionEnum.ERROR_FIRE.getErrorDescription(), SMSResponseCodesEnum.ERROR_FIRE_CODE.getErrorCode());
                     }
                 } else {
-                    return  serviceResponseFacade.generateInternalErrorResponse();
+                    return serviceResponseFacade.generateInternalErrorResponse();
                 }
             } else {
                 return serviceResponseFacade.generateInvalidMobileNumberResponse();
             }
+        } else if (ObjectUtil.isNullOrEmpty(mobileNumber) || ObjectUtil.isNullOrEmpty(body)) {
+            return serviceResponseFacade.generateMissingMandatoryFieldResponse();
+        } else {
+            serviceResponseFacade.generateInternalErrorResponse();
         }
-//        else if (ObjectUtil.isNullOrEmpty(mobileNumber)) {
-//            return serviceResponseFacade.generateSMSResponse
-//                    (SMSResponseCodeDescriptionEnum.EMPTY_Mobile_Number.getErrorDescription(), SMSResponseCodesEnum.EMPTY_MOB_CODE.getErrorCode());
-//        } else if (ObjectUtil.isNullOrEmpty(body)) {
-//            return serviceResponseFacade.generateSMSResponse
-//                    (SMSResponseCodeDescriptionEnum.EMPTY_Body.getErrorDescription(), SMSResponseCodesEnum.EMPTY_BODY_CODE.getErrorCode());
-//        }
 
         return null;
     }
