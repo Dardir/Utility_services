@@ -12,6 +12,7 @@ public class ServiceCaller {
             K resp = (K) restTemplate.getForObject(url, responseClass);
             return resp;
         } catch (Exception e) {
+        	e.printStackTrace();
             return null;
         }
     }
