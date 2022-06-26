@@ -31,7 +31,9 @@ public class CommonRoutesFlow extends RestRoute {
 //		// Build Service Response Route
 
         buildGeneralRoute(FlowRouteNames.GENERATE_SERVICE_RESPONSE_ROUTE_NAME, generateServiceResponseProcessor)
-                .to(FlowRouteNames.AUDIT_ROUTE_NAME).to("log:INFO?showBody=true&showHeaders=true").end();
+                .to(FlowRouteNames.AUDIT_ROUTE_NAME)
+//                .to("log:INFO?showBody=true&showHeaders=true")
+                .end();
 
         // Auth with E_Card
 //        buildRestServiceCallerRoute("direct:PROCESS_SMS", HttpMethod.GET,

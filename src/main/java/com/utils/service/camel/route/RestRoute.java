@@ -23,7 +23,7 @@ public abstract class RestRoute extends RouteBuilder {
                 .type(requestTypeClass).param()
                 .name("body").type(body).description("Payload").endParam()
                 .route()
-                .to("log:INFO?showBody=true&showHeaders=true")
+//                .to("log:INFO?showBody=true&showHeaders=true")
 //                .setProperty(ConstantsEnum.OriginalMessage.getConstantValue(), simple("${body}"))
 //                .setProperty(ConstantsEnum.ServiceName.getConstantValue(), constant(serviceName))
                 .to(FlowRouteNames.AUDIT_ROUTE_NAME)
