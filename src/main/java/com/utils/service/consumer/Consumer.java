@@ -30,7 +30,7 @@ public class Consumer {
 		Gson gson = new Gson();
 		SendSMSRequestDTO smsMsg = gson.fromJson(message, SendSMSRequestDTO.class);
 		ServiceResponse res = receiveSMSFacade.processSMS(smsMsg);
-		System.out.println("SENT? =========>>>>>>>>>>   " + res.getServiceHeader().getResponseCode());
+//		System.out.println("SENT? =========>>>>>>>>>>   " + res.getServiceHeader().getResponseCode());
 
 	}
 }

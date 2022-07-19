@@ -47,7 +47,7 @@ public class ReceiveSMSFacade {
                                         "&User=" + userName + "&Password=" + password +
                                         "&Service=&Validty=&StartTime=",
                                 String.class);
-                System.out.println("RES =========>>>>>>>>>>   " + res);
+//                System.out.println("RES =========>>>>>>>>>>   " + res);
                 if (!ObjectUtil.isNullOrEmpty(res)) {
                     if (ServiceResponseFacade.isSuccessResponseCode(res)) {
                         return serviceResponseFacade.generateSuccessResponse();

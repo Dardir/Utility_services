@@ -28,11 +28,11 @@ public class ReceiveSMSProcessor implements Processor {
     public void process(Exchange exchange) {
         SendSMSRequestDTO msg = exchange.getIn()
                 .getBody(SendSMSRequestDTO.class);
-        System.out.println("MSG =========>>>>>>>>>>   " + msg);
+//        System.out.println("MSG =========>>>>>>>>>>   " + msg);
 //        ///////////////////////////////////////////////////////
         ServiceResponse res = receiveSMSFacade.processSMS(msg);
-        System.out.println("Description =========>>>>>>>>>>   " + res.getServiceHeader().getResponseDesc());
-        System.out.println("Code =========>>>>>>>>>>   " + res.getServiceHeader().getResponseCode());
+//        System.out.println("Description =========>>>>>>>>>>   " + res.getServiceHeader().getResponseDesc());
+//        System.out.println("Code =========>>>>>>>>>>   " + res.getServiceHeader().getResponseCode());
         serviceResponseFacade.prepareServiceResponseRedirection(res, exchange);
     }
 }
