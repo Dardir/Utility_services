@@ -1,9 +1,7 @@
 package com.utils.service.facade;
 
+import com.utils.service.camel.common.Constants;
 import com.utils.service.dto.sms.ServiceResponse;
-import com.utils.service.enums.SMSResponseCodeDescriptionEnum;
-import com.utils.service.enums.SMSResponseCodesEnum;
-import com.utils.service.dto.sms.SMSResponseWrapperDTO;
 import com.utils.service.dto.sms.SendSMSRequestDTO;
 import com.utils.service.service.ServiceCaller;
 import org.springframework.core.env.Environment;
@@ -15,12 +13,13 @@ public class ReceiveSMSFacade {
 
     private final ServiceCaller serviceCaller;
     private final ServiceResponseFacade serviceResponseFacade;
-    private final Environment env;
+    private final Constants constants;
 
-    public ReceiveSMSFacade(ServiceCaller serviceCaller, ServiceResponseFacade serviceResponseFacade, Environment env) {
+    public ReceiveSMSFacade(ServiceCaller serviceCaller, ServiceResponseFacade serviceResponseFacade, Environment env, Constants constants) {
         this.serviceCaller = serviceCaller;
         this.serviceResponseFacade = serviceResponseFacade;
-        this.env = env;
+
+        this.constants = constants;
     }
 
     public ServiceResponse processSMS(SendSMSRequestDTO sendSMSRequestDTO) {
@@ -33,10 +32,10 @@ public class ReceiveSMSFacade {
         String body = sendSMSRequestDTO.getMsgBody();
         ///////////////////////////////////////////////////////
         // From Properties
-        String sender = "BARAKA EGY";
-        String userName = "BARAKA Test";
-        String password = "Bara@1234";
-        String url = "https://www.ezagel.com/portex_ws/service.asmx/Send_SMS";
+        String sender =constants.getSMSSenderName();
+        String userName = constants.getSendSMSUserName();
+        String password = constants.getSendSMSPassword();
+        String url = constants.getSendSMSBaseServiceURL();
         ///////////////////////////////////////////////////////
         if (!ObjectUtil.isNullOrEmpty(mobileNumber) && !ObjectUtil.isNullOrEmpty(body)) {
             if (ObjectUtil.onlyDigits(mobileNumber)) {
