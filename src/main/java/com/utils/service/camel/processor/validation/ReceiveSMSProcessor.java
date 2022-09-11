@@ -5,6 +5,8 @@ import com.utils.service.dto.sms.SendSMSRequestDTO;
 import com.utils.service.dto.sms.ServiceResponse;
 import com.utils.service.facade.ReceiveSMSFacade;
 import com.utils.service.facade.ServiceResponseFacade;
+import com.utils.service.util.ObjectUtil;
+
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -33,6 +35,9 @@ public class ReceiveSMSProcessor implements Processor {
         ServiceResponse res = receiveSMSFacade.processSMS(msg);
 //        System.out.println("Description =========>>>>>>>>>>   " + res.getServiceHeader().getResponseDesc());
 //        System.out.println("Code =========>>>>>>>>>>   " + res.getServiceHeader().getResponseCode());
+        if(ObjectUtil.isNullOrEmpty(res)) {
+        	res.generateInternalErrorResponse();
+        }
         serviceResponseFacade.prepareServiceResponseRedirection(res, exchange);
     }
 }
