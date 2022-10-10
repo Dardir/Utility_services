@@ -35,7 +35,7 @@ public class RequestQueueProcessor implements Processor {
 	}
 
 	@Override
-	public synchronized void process(Exchange exchange) {
+	public void process(Exchange exchange) {
 //		try {
 //			Object request = exchange.getIn().getBody();
 //			AuditLogDto logDto = new AuditLogDto();
