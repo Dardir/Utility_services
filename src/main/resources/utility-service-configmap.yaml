@@ -1,0 +1,14 @@
+apiVersion: v1
+data:
+  activemq.broker.url: ${AMQRoute:tcp://uat-amq-ipn-all-0-svc.openshift-operators.svc.cluster.local:61616}
+  spring.datasource.password: Admin@12345
+  spring.datasource.url: jdbc:sqlserver://172.17.203.34;database=mwdb
+  spring.datasource.username: sa
+  spring.jpa.properties.hibernate.jdbc.time_zone: UTC
+  utils.ezagel.sms.password: Bara@1234
+  utils.ezagel.sms.sender: BARAKA EGY
+  utils.ezagel.sms.url: https://www.ezagel.com/portex_ws/service.asmx/Send_SMS
+  utils.ezagel.sms.username: BARAKA Test
+kind: ConfigMap
+metadata:
+  name: utility-service
