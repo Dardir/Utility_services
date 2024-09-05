@@ -1,20 +1,12 @@
 package com.utils.service.camel.processor.validation.common;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
-import com.utils.service.dto.sms.AuditLogDto;
-import com.utils.service.util.ObjectUtil;
-import org.apache.activemq.ActiveMQConnectionFactory;
+import org.apache.activemq.artemis.jms.client.ActiveMQConnectionFactory;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
-
 import javax.jms.Queue;
-import java.util.ArrayList;
-import java.util.List;
 
 @Component
 //@Async

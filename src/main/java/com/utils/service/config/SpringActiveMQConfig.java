@@ -1,9 +1,10 @@
 package com.utils.service.config;
 
+import javax.jms.JMSException;
 import javax.jms.Queue;
 
-import org.apache.activemq.ActiveMQConnectionFactory;
-import org.apache.activemq.command.ActiveMQQueue;
+import org.apache.activemq.artemis.jms.client.ActiveMQConnectionFactory;
+import org.apache.activemq.artemis.jms.client.ActiveMQQueue;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,7 +26,11 @@ public class SpringActiveMQConfig {
 	@Bean
 	public ActiveMQConnectionFactory activeMQConnectionFactory() {
 		ActiveMQConnectionFactory activeMQConnectionFactory = new ActiveMQConnectionFactory();
-		activeMQConnectionFactory.setBrokerURL(brokerUrl);
+		try {
+			activeMQConnectionFactory.setBrokerURL(brokerUrl);
+		} catch (JMSException e) {
+			e.printStackTrace();
+		}
 		return activeMQConnectionFactory;
 	}
 
