@@ -23,7 +23,7 @@ public class ServiceCaller {
 
     public <T, K> K sendRestRequest(String url, Class<?> responseClass) {
         try {
-        	Proxy proxy = new Proxy(Type.HTTP, new InetSocketAddress("192.168.150.6", 8080));
+        	Proxy proxy = new Proxy(Type.HTTP, new InetSocketAddress("172.20.200.20", 8080));
         	SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
         	requestFactory.setProxy(proxy);
             RestTemplate restTemplate = new RestTemplate(requestFactory);
