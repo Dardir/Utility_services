@@ -30,7 +30,7 @@ public class ServiceCaller {
             K resp = (K) restTemplate.getForObject(url, responseClass);
             return resp;
         } catch (Exception e) {
-        	e.printStackTrace();
+            System.out.println("we encountered error while trying to connect to the server which is :" + e.getMessage());
             return null;
         }
     }

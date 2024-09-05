@@ -4,9 +4,12 @@ import com.utils.service.camel.common.Constants;
 import com.utils.service.dto.sms.ServiceResponse;
 import com.utils.service.dto.sms.SendSMSRequestDTO;
 import com.utils.service.service.ServiceCaller;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import com.utils.service.util.*;
+import org.springframework.web.client.HttpServerErrorException;
 
 @Component
 public class ReceiveSMSFacade {
@@ -14,6 +17,7 @@ public class ReceiveSMSFacade {
     private final ServiceCaller serviceCaller;
     private final ServiceResponseFacade serviceResponseFacade;
     private final Constants constants;
+
 
     public ReceiveSMSFacade(ServiceCaller serviceCaller, ServiceResponseFacade serviceResponseFacade, Environment env, Constants constants) {
         this.serviceCaller = serviceCaller;
@@ -32,21 +36,28 @@ public class ReceiveSMSFacade {
         String body = sendSMSRequestDTO.getMsgBody();
         ///////////////////////////////////////////////////////
         // From Properties
-        String sender =constants.getSMSSenderName();
+        String sender = constants.getSMSSenderName();
         String userName = constants.getSendSMSUserName();
         String password = constants.getSendSMSPassword();
         String url = constants.getSendSMSBaseServiceURL();
         ///////////////////////////////////////////////////////
+
         if (!ObjectUtil.isNullOrEmpty(mobileNumber) && !ObjectUtil.isNullOrEmpty(body)) {
             if (ObjectUtil.onlyDigits(mobileNumber)) {
-                String res = serviceCaller.sendRestRequest
-                        (url + "?Msg_ID=" + msgId + "&Mobile_NO=" + mobileNumber +
-                                        "&Body=" + body +
-                                        "&Validty&StartTime&Sender=" + sender +
-                                        "&User=" + userName + "&Password=" + password +
-                                        "&Service=&Validty=&StartTime=",
-                                String.class);
-//                System.out.println("RES =========>>>>>>>>>>   " + res);
+                String res = null;
+                try {
+                    res = serviceCaller.sendRestRequest
+                            (url + "?Mobile_NO=" + mobileNumber +
+                                            "&Body=" + body +
+                                            "&Validty=&StartTime=&Sender=" + sender +
+                                            "&User=" + userName + "&Password=" + password +
+                                            "&Service=",
+                                    String.class);
+                } catch (Exception e) {
+                    System.out.println("we encountered error while trying to connect to the server which is :" + e.getMessage());
+                    return null;
+                }
+                System.out.println("RES =========>>>>>>>>>>   " + res);
                 if (!ObjectUtil.isNullOrEmpty(res)) {
                     if (ServiceResponseFacade.isSuccessResponseCode(res)) {
                         return serviceResponseFacade.generateSuccessResponse();
@@ -68,5 +79,6 @@ public class ReceiveSMSFacade {
         }
 
         return null;
+
     }
 }
