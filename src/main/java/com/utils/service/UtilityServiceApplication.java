@@ -10,10 +10,10 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 public class UtilityServiceApplication {
 
 	public static void main(String[] args) {
-		 System.setProperty("http.proxyHost", "192.168.150.6");
+		 System.setProperty("http.proxyHost", "172.20.200.20");
 	        System.setProperty("http.proxyPort", "8080");
 
-	        System.setProperty("https.proxyHost", "192.168.150.6");
+	        System.setProperty("https.proxyHost", "172.20.200.20");
 	        System.setProperty("https.proxyPort", "8080");
 	        
 
