@@ -8,6 +8,7 @@ import java.net.Proxy;
 import java.net.Proxy.Type;
 import java.net.URL;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
@@ -21,9 +22,15 @@ import org.springframework.web.client.RestTemplate;
 @Component
 public class ServiceCaller {
 
+    @Value("${proxy.host}")
+    private String proxyHost;
+
+    @Value("${proxy.port}")
+    private int proxyport;
+
     public <T, K> K sendRestRequest(String url, Class<?> responseClass) {
         try {
-        	Proxy proxy = new Proxy(Type.HTTP, new InetSocketAddress("172.20.200.20", 8080));
+        	Proxy proxy = new Proxy(Type.HTTP, new InetSocketAddress(proxyHost, proxyport));
         	SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
         	requestFactory.setProxy(proxy);
             RestTemplate restTemplate = new RestTemplate(requestFactory);

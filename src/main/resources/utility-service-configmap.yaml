@@ -9,6 +9,8 @@ data:
   utils.ezagel.sms.sender: BARAKA EGY
   utils.ezagel.sms.url: https://www.ezagel.com/portex_ws/service.asmx/Send_SMS
   utils.ezagel.sms.username: BARAKA Test
+  proxy.host: 172.20.200.20
+  proxy.port: 8080
 kind: ConfigMap
 metadata:
   name: utility-service
